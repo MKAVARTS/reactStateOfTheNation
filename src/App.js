@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Container, Row, Col, Jumbotron} from 'reactstrap';
 import './App.css';
 
 
@@ -8,11 +9,15 @@ let individualWords, randomIndex;
 
 function PrintWord(props){
   return(
-    <div>
-        <h1>State of the Nation (according to NY times)</h1>
-       <h2>{props.word}</h2>
-    </div>
+      <div>
+         <h1 className='App'>State of the Nation (NY Times Headlines)</h1>
+         <h2 className ="state text-center">{props.word}</h2>
+      </div>
   )
+}
+
+function onMouseOver(){
+  console.log('mouseOver');
 }
 
 class App extends Component {
@@ -21,26 +26,26 @@ class App extends Component {
     super(props);
     this.state = {
       articlesLoaded : false,
-      randomWord: ''
+      randomWord: '',
+      condition : true,
     };
-
     this.startWords = this.startWords.bind(this);
+    this.setStyle = this.setStyle.bind(this);
   }
 
-  componentDidMount(){
-    this.getArticles();
-  }
+componentDidMount(){
+  this.getArticles();
+}
 
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
+componentWillUnmount() {
+  clearInterval(this.timerID);
+}
 
-   getArticles(){
+  getArticles(){
     console.log('getting articles');
     fetch('https://api.nytimes.com/svc/topstories/v2/home.json?api-key=ce756eac7a244fd9a4ddb6fda136e832')
     .then(topStories => topStories.json())
     .then((topStoriesParsed) => {
-
       this.pushHeadlines(topStoriesParsed);
     })
 }
@@ -48,17 +53,22 @@ class App extends Component {
 pushHeadlines(parseHeadlines){
   console.log("parseHeadlines : ", parseHeadlines.results);
   parseHeadlines.results.map(function(item){
-    var separator = item.title.split(' ').length;
-    wordArray.push(item.title.split(' '));
+  wordArray.push(item.title.split(' '));
   })
-    this.timerID = setInterval(
-      () => this.pickWord(),
-      200
-    );
-}
+    this.timerID = setInterval(() => this.pickWord(),150);
+  }
 
 startWords(){
   this.setState({articlesLoaded: true})
+}
+
+setStyle(e){
+  if(e.type === 'mouseover'){
+    this.setState({condition: false})
+  }else{
+    this.setState({condition: true})
+  }
+
 }
 
 pickWord(){
@@ -70,22 +80,30 @@ pickWord(){
     });
 }
 
-  render() { 
-    const {articlesLoaded, randomWord} = this.state;
-    if(!articlesLoaded){
+render() { 
+  const {articlesLoaded, randomWord, condition} = this.state;
+  if(!articlesLoaded){
     return (
-      <div className="App">
-      <h1>
-      By pressing this button you will see words of the top stories in the NY times in rapid succession. Delivering your news as an abstract "state of the nation"
-      <button onClick = {this.startWords}> STATE OF THE NATION </button>
-      </h1>
-      </div>
+    <Container className = 'App' >
+      <Row>
+        <Col>
+          <h1>By pressing this button you will see words of the top stories in the NY times in rapid succession. Delivering your news as an abstract "state of the nation"</h1>
+          <button onClick = {this.startWords} onMouseOver = {this.setStyle} onMouseOut = {this.setStyle} className = {this.state.condition ? "buttonWhite" : "buttonRed" }> STATE OF THE NATION </button>
+        </Col>
+      </Row>
+    </Container>
     );
   }else{
     return (
-      <div className="App">
-      <PrintWord word = {this.state.randomWord} />
-      </div>
+      <Container>
+        <Row>
+          <Col>
+            <div>
+                <PrintWord word = {this.state.randomWord} />
+            </div>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

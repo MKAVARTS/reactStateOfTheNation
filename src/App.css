@@ -1,4 +1,7 @@
 .App {
+  padding-left: 100px;
+  padding-right: 100px;
+  margin-top: 18%;
   text-align: center;
 }
 
@@ -23,17 +26,84 @@
 }
 
 h2{
+  /* display: inline-block; */
+  margin-top: 5px;
   font-size: 10em;
 }
 
 body{
+  font-family: 'IBM Plex Mono', monospace;
   background-color: black;
   color: white;
 }
 
-button{
+.buttonWhite{
   padding: 10px;
   border-radius: 10px;
   margin-top: 20px;
+  margin-bottom: 20px;
   font-size: 2em;
+}
+
+.buttonRed{
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 2em;
+  background-color: red;
+}
+
+.state{
+  font-family: Helvetica;
+  text-shadow:   1px 0px #000000, 0px 1px #000000,
+  2px 1px #171717, 1px 2px #171717,
+  3px 2px #2e2e2e, 2px 3px #2e2e2e,
+  4px 3px #454545, 3px 4px #454545,
+  5px 4px #5c5c5c, 4px 5px #5c5c5c,
+  6px 5px #737373, 5px 6px #737373,
+  7px 6px #8b8b8b, 6px 7px #8b8b8b,
+  8px 7px #a2a2a2, 7px 8px #a2a2a2,
+  8px 8px #b9b9b9;
+}
+
+
+
+
+@media (max-width: 575.98px) { 
+  h2 {
+    font-size: 6em;
+    text-align: center;
+  }
+}
+
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  h2 {
+    font-size: 7.5em;
+    text-align: center;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  h2 {
+    font-size: 8em;
+    text-align: center;
+  }
+}
+
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  h2{
+    font-size: 9em;
+    text-align: center;
+  }
+}
+
+
+@media (min-width: 1200px) { 
+  h2 {
+    font-size: 10em;
+    text-align: center;
+  }
 }
