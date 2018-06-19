@@ -55,7 +55,7 @@ pushHeadlines(parseHeadlines){
   parseHeadlines.results.map(function(item){
   wordArray.push(item.title.split(' '));
   })
-    this.timerID = setInterval(() => this.pickWord(),150);
+    this.timerID = setInterval(() => this.pickWord(),200);
   }
 
 startWords(){
@@ -87,7 +87,7 @@ render() {
     <Container className = 'App' >
       <Row>
         <Col>
-          <h1>By pressing this button you will see words of the top stories in the NY times in rapid succession. Delivering your news as an abstract "state of the nation"</h1>
+          <h1>By pressing this button you will see words of the  current top stories in the NY times in rapid succession. Delivering your news as an abstract "state of the nation"</h1>
           <button onClick = {this.startWords} onMouseOver = {this.setStyle} onMouseOut = {this.setStyle} className = {this.state.condition ? "buttonWhite" : "buttonRed" }> STATE OF THE NATION </button>
         </Col>
       </Row>
